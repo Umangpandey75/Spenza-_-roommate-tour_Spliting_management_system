@@ -91,12 +91,12 @@ vi.mock('framer-motion', async () => {
   const motion = new Proxy({}, {
     get: (_, prop) => {
       if (prop === 'custom') {
-        return (Component) => ({ children, ...props }) => {
+        return (Component) => function MockCustomComponent({ children, ...props }) {
           const { layoutId, animate, initial, exit, transition, ...validProps } = props;
           return <Component {...validProps}>{children}</Component>;
         };
       }
-      return ({ children, ...props }) => {
+      return function MockMotionComponent({ children, ...props }) {
         const { layoutId, animate, initial, exit, transition, ...validProps } = props;
         const Component = prop;
         return <Component {...validProps}>{children}</Component>;

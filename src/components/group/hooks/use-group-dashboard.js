@@ -58,7 +58,7 @@ export function useGroupDashboard(group, onUpdateGroup, defaultTab = 'overview')
         variant: "default",
       });
     }
-  }, [group, group.expenses, group.participants, onUpdateGroup, toast]);
+  }, [group, onUpdateGroup, toast]);
 
   // Auto-fix expenses with invalid payerId on mount
   useEffect(() => {
