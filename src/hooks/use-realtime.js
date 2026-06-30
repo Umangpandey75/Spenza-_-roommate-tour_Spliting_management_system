@@ -10,8 +10,10 @@ export function useRealtimeGroups(userId, onGroupsChange) {
 
     console.log('🔄 Setting up real-time groups subscription for user:', userId);
     
+    const manager = realtimeManager.current;
+    
     // Subscribe to groups changes
-    subscriptionRef.current = realtimeManager.current.subscribeToGroups(
+    subscriptionRef.current = manager.subscribeToGroups(
       userId,
       (payload) => {
         console.log('📡 Groups real-time update:', payload);
@@ -23,7 +25,7 @@ export function useRealtimeGroups(userId, onGroupsChange) {
     return () => {
       if (subscriptionRef.current) {
         console.log('🧹 Cleaning up groups real-time subscription');
-        realtimeManager.current.unsubscribe(`groups-${userId}`);
+        manager.unsubscribe(`groups-${userId}`);
         subscriptionRef.current = null;
       }
     };
@@ -49,8 +51,10 @@ export function useRealtimeGroupExpenses(groupId, onExpensesChange) {
 
     console.log('🔄 Setting up real-time expenses subscription for group:', groupId);
     
+    const manager = realtimeManager.current;
+    
     // Subscribe to expense changes
-    subscriptionRef.current = realtimeManager.current.subscribeToGroupExpenses(
+    subscriptionRef.current = manager.subscribeToGroupExpenses(
       groupId,
       (payload) => {
         console.log('📡 Expenses real-time update:', payload);
@@ -62,7 +66,7 @@ export function useRealtimeGroupExpenses(groupId, onExpensesChange) {
     return () => {
       if (subscriptionRef.current) {
         console.log('🧹 Cleaning up expenses real-time subscription');
-        realtimeManager.current.unsubscribe(`group-expenses-${groupId}`);
+        manager.unsubscribe(`group-expenses-${groupId}`);
         subscriptionRef.current = null;
       }
     };

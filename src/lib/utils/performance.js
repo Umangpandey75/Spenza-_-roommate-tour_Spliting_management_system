@@ -31,6 +31,7 @@ export function useDebounce(callback, delay) {
  * @returns {any} Memoized result
  */
 export function useMemoizedCalculation(calculation, dependencies) {
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   return useMemo(() => {
     const start = performance.now();
     const result = calculation();
