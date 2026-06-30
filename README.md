@@ -3,8 +3,6 @@
 # 🚀 Spenza
 
 <div align="center">
-<!-- ═══════════ DEMO LINK ═══════════ -->
-**Demo Live:** [https://spendinspenza.vercel.app/](https://spendinspenza.vercel.app/)
 
 <br/>
 
@@ -30,6 +28,14 @@
 ![Stars](https://img.shields.io/github/stars/Umangpandey75/Spenza-_-roommate-tour_Spliting_management_system?style=social)
 &nbsp;
 ![Forks](https://img.shields.io/github/forks/Umangpandey75/Spenza-_-roommate-tour_Spliting_management_system?style=social)
+
+</div>
+
+<div align="center">
+
+<a href="https://spendinspenza.vercel.app/" target="_blank">
+  <img src="https://img.shields.io/badge/🚀_Live_Demo-Visit_Website-00C853?style=for-the-badge" alt="Live Demo"/>
+</a>
 
 </div>
 
