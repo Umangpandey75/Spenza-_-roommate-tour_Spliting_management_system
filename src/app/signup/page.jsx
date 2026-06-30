@@ -11,6 +11,7 @@ import { ThemeToggle } from '../../components/shared/theme-toggle'
 import { Receipt, ArrowLeft, Mail, Lock } from 'lucide-react'
 
 export default function SignUpPage() {
+  const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
@@ -27,19 +28,33 @@ export default function SignUpPage() {
     setMessage('')
 
     try {
-      const { error } = await supabase.auth.signUp({
+      const { data, error } = await supabase.auth.signUp({
         email,
         password,
+        options: {
+          data: {
+            username: username.toLowerCase()
+          }
+        }
       })
 
       if (error) {
-        setError(error.message)
+        // Fallback for direct errors
+        if (error.message.toLowerCase().includes('already registered')) {
+          setError('Email is already used')
+        } else {
+          setError(error.message)
+        }
+      } else if (data?.user?.identities?.length === 0) {
+        // Supabase returns an empty identities array for already registered emails 
+        // to prevent email enumeration by default.
+        setError('Email is already used')
       } else {
-        setMessage('Check your email for the confirmation link!')
+        setMessage('Account created successfully! Redirecting...')
         // Redirect to home page after successful signup
         setTimeout(() => {
           router.push('/')
-        }, 2000)
+        }, 1500)
       }
     } catch (err) {
       setError('An unexpected error occurred')
@@ -123,6 +138,27 @@ export default function SignUpPage() {
             <CardContent className="space-y-6">
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="space-y-4">
+                  <div className="space-y-2">
+                    <label htmlFor="username" className="text-sm font-medium text-foreground">
+                      Username
+                    </label>
+                    <div className="relative">
+                      {/* Using User icon instead of Mail, but since User isn't imported, let's just use text input or import User */}
+                      <svg className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                      <input
+                        id="username"
+                        name="username"
+                        type="text"
+                        autoComplete="username"
+                        required
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
+                        className="w-full pl-10 pr-3 py-2 border border-input bg-background text-foreground rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                        placeholder="Choose a username"
+                      />
+                    </div>
+                  </div>
+
                   <div className="space-y-2">
                     <label htmlFor="email" className="text-sm font-medium text-foreground">
                       Email address

@@ -11,7 +11,7 @@ import { ThemeToggle } from '../../components/shared/theme-toggle'
 import { Receipt, ArrowLeft, Mail, Lock } from 'lucide-react'
 
 export default function LoginPage() {
-  const [email, setEmail] = useState('')
+  const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
@@ -25,8 +25,20 @@ export default function LoginPage() {
     setError('')
 
     try {
+      // First, get the email associated with this username
+      const { data: emailData, error: rpcError } = await supabase.rpc('get_email_by_username', {
+        p_username: username.toLowerCase()
+      })
+
+      if (rpcError || !emailData) {
+        setError('Invalid username or password')
+        setLoading(false)
+        return
+      }
+
+      // Then sign in with the retrieved email
       const { error } = await supabase.auth.signInWithPassword({
-        email,
+        email: emailData,
         password,
       })
 
@@ -118,21 +130,21 @@ export default function LoginPage() {
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="space-y-4">
                   <div className="space-y-2">
-                    <label htmlFor="email" className="text-sm font-medium text-foreground">
-                      Email address
+                    <label htmlFor="username" className="text-sm font-medium text-foreground">
+                      Username
                     </label>
                     <div className="relative">
                       <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                       <input
-                        id="email"
-                        name="email"
-                        type="email"
-                        autoComplete="email"
+                        id="username"
+                        name="username"
+                        type="text"
+                        autoComplete="username"
                         required
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
                         className="w-full pl-10 pr-3 py-3 sm:py-2 border border-input bg-background text-foreground rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors min-h-[44px]"
-                        placeholder="Enter your email"
+                        placeholder="Enter your username"
                       />
                     </div>
                   </div>
