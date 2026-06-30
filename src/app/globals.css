@@ -1,0 +1,231 @@
+@import "tailwindcss";
+
+/* Design Tokens */
+/* Dark mode variables (default) */
+:root {
+  --background: #0a0a0a;
+  --foreground: #ededed;
+  --card: #0a0a0a;
+  --card-foreground: #ededed;
+  --popover: #0a0a0a;
+  --popover-foreground: #ededed;
+  --primary: #ededed;
+  --primary-foreground: #0a0a0a;
+  --secondary: #1a1a1a;
+  --secondary-foreground: #ededed;
+  --muted: #1a1a1a;
+  --muted-foreground: #a1a1aa;
+  --accent: #1a1a1a;
+  --accent-foreground: #ededed;
+  --destructive: #dc2626;
+  --destructive-foreground: #ededed;
+  --border: #27272a;
+  --input: #27272a;
+  --ring: #ededed;
+  --success: #059669;
+  --warning: #d97706;
+  
+  /* Light mode variables */
+  &.light {
+    --background: #ffffff;
+    --foreground: #0a0a0a;
+    --card: #ffffff;
+    --card-foreground: #0a0a0a;
+    --popover: #ffffff;
+    --popover-foreground: #0a0a0a;
+    --primary: #0a0a0a;
+    --primary-foreground: #ffffff;
+    --secondary: #f4f4f5;
+    --secondary-foreground: #0a0a0a;
+    --muted: #f4f4f5;
+    --muted-foreground: #71717a;
+    --accent: #f4f4f5;
+    --accent-foreground: #0a0a0a;
+    --destructive: #dc2626;
+    --destructive-foreground: #ffffff;
+    --border: #e4e4e7;
+    --input: #e4e4e7;
+    --ring: #0a0a0a;
+    --success: #059669;
+    --warning: #d97706;
+  }
+  
+  /* High contrast mode adjustments */
+  &.high-contrast {
+    --border: currentColor;
+    --ring: currentColor;
+    
+    &.light {
+      --background: #ffffff;
+      --foreground: #000000;
+      --primary: #000000;
+      --primary-foreground: #ffffff;
+      --secondary: #f0f0f0;
+      --secondary-foreground: #000000;
+      --muted: #f0f0f0;
+      --muted-foreground: #000000;
+      --accent: #f0f0f0;
+      --accent-foreground: #000000;
+      --border: #000000;
+      --input: #ffffff;
+      --ring: #000000;
+    }
+    
+    &:not(.light) {
+      --background: #000000;
+      --foreground: #ffffff;
+      --primary: #ffffff;
+      --primary-foreground: #000000;
+      --secondary: #333333;
+      --secondary-foreground: #ffffff;
+      --muted: #333333;
+      --muted-foreground: #ffffff;
+      --accent: #333333;
+      --accent-foreground: #ffffff;
+      --border: #ffffff;
+      --input: #000000;
+      --ring: #ffffff;
+    }
+  }
+  
+  /* Spacing */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  --spacing-2xl: 3rem;
+  
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  
+  /* Motion - controlled by accessibility preferences */
+  --motion-scale: 1;
+  --motion-duration-fast: calc(150ms * var(--motion-scale));
+  --motion-duration-normal: calc(200ms * var(--motion-scale));
+  --motion-duration-slow: calc(300ms * var(--motion-scale));
+  --motion-ease: cubic-bezier(0.4, 0, 0.2, 1);
+  
+  /* Focus indicators */
+  --focus-ring-width: 2px;
+  --focus-ring-offset: 2px;
+  --focus-ring-color: var(--ring);
+  
+  /* Radius */
+  --radius: 0.5rem;
+  --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo, monospace;
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --motion-scale: 0;
+  }
+}
+
+/* Reduced motion class override */
+.reduced-motion {
+  --motion-scale: 0 !important;
+}
+
+.reduced-motion *, 
+.reduced-motion *::before, 
+.reduced-motion *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+  scroll-behavior: auto !important;
+}
+
+/* High contrast mode enhancements */
+.high-contrast {
+  --contrast-scale: 1.5;
+}
+
+.high-contrast * {
+  text-shadow: none !important;
+  box-shadow: none !important;
+}
+
+.high-contrast button,
+.high-contrast input,
+.high-contrast select,
+.high-contrast textarea {
+  border: 2px solid var(--border) !important;
+}
+
+/* Focus management */
+.focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus-ring-color) !important;
+  outline-offset: var(--focus-ring-offset) !important;
+}
+
+/* Skip link for keyboard navigation */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 6px;
+  background: var(--primary);
+  color: var(--primary-foreground);
+  padding: 8px;
+  text-decoration: none;
+  border-radius: 4px;
+  z-index: 1000;
+  transition: top var(--motion-duration-fast) var(--motion-ease);
+}
+
+.skip-link:focus {
+  top: 6px;
+}
+
+/* Mobile-friendly scrollbar hiding */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Mobile touch improvements */
+@media (max-width: 640px) {
+  /* Ensure minimum touch targets */
+  button, 
+  [role="button"], 
+  input[type="button"], 
+  input[type="submit"] {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  /* Better mobile spacing */
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  /* Mobile-friendly dialogs */
+  [role="dialog"] {
+    margin: 1rem;
+    max-height: calc(100vh - 2rem);
+    overflow-y: auto;
+  }
+}
+
+/* Base Styles */
+* {
+  border-color: var(--border);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  transition: background-color var(--motion-duration-normal) var(--motion-ease),
+              color var(--motion-duration-normal) var(--motion-ease);
+}
+
