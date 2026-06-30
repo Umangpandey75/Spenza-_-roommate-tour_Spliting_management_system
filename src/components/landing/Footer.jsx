@@ -1,5 +1,5 @@
 import React from 'react';
-import { Twitter, Github, Linkedin, Mail } from 'lucide-react';
+import { Globe, Github, Linkedin, Mail } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 
 export function Footer() {
@@ -23,13 +23,13 @@ export function Footer() {
               The smartest way to split expenses with friends, roommates, and travel companions. Stop doing math and start enjoying the moment.
             </p>
             <div className="flex items-center gap-4">
-              <a href="#" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 hover:text-white hover:bg-white/10 transition-colors">
-                <Twitter className="w-4 h-4" />
+              <a href="https://umangpandey.vercel.app/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 hover:text-white hover:bg-white/10 transition-colors">
+                <Globe className="w-4 h-4" />
               </a>
-              <a href="#" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 hover:text-white hover:bg-white/10 transition-colors">
+              <a href="https://github.com/Umangpandey75" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 hover:text-white hover:bg-white/10 transition-colors">
                 <Github className="w-4 h-4" />
               </a>
-              <a href="#" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 hover:text-white hover:bg-white/10 transition-colors">
+              <a href="https://www.linkedin.com/in/umang-pandey-01b486273/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 hover:text-white hover:bg-white/10 transition-colors">
                 <Linkedin className="w-4 h-4" />
               </a>
             </div>
@@ -64,7 +64,7 @@ export function Footer() {
             <ul className="space-y-4 text-sm text-slate-400">
               <li className="flex items-center gap-3">
                 <Mail className="w-4 h-4 text-slate-500" />
-                <a href="mailto:hello@spenza.app" className="hover:text-purple-400 transition-colors">hello@spenza.app</a>
+                <a href="mailto:umangpandey.co@gmail.com" className="hover:text-purple-400 transition-colors">umangpandey.co@gmail.com</a>
               </li>
               <li>
                 <div className="mt-6 p-4 rounded-2xl bg-gradient-to-br from-purple-500/10 to-blue-500/10 border border-purple-500/20 backdrop-blur-sm">
@@ -87,7 +87,7 @@ export function Footer() {
             &copy; {new Date().getFullYear()} Spenza. All rights reserved.
           </p>
           <div className="flex items-center gap-2 text-sm text-slate-500">
-            Designed with <span className="text-rose-500">♥</span> for humans.
+            Created by Umang Pandey
           </div>
         </div>
       </div>
