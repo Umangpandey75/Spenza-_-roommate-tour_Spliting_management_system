@@ -9,7 +9,7 @@ export class SupabaseAdapter {
     this.supabase = createClient();
     this.userCache = null;
     this.userCacheExpiry = 0;
-    console.log('🔧 SupabaseAdapter created');
+    console.log('🔧 SupabaseAdapter created with client:', this.supabase);
     
     // Test connection immediately
     this.testConnection();
