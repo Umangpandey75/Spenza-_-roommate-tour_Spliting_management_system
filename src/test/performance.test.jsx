@@ -7,6 +7,8 @@ import ExpenseTable from '../components/expense/expense-table';
 import SettlementGraph from '../components/settlement/settlement-graph';
 import { computeNet, computeMinimalSettlements } from '../lib/calc/index.js';
 
+
+
 // Performance monitoring utilities
 const measurePerformance = (name, fn) => {
   return new Promise((resolve) => {

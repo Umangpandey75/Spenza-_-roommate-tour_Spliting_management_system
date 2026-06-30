@@ -37,7 +37,7 @@ export const groupSchema = z.object({
   name: z.string().min(1, 'Group name is required').max(100, 'Name too long'),
   currency: currencyCodeSchema,
   createdAt: z.date(),
-  participants: z.array(participantSchema).default([]),
+  participants: z.array(participantSchema).min(1, 'At least one participant is required').default([]),
   expenses: z.array(expenseSchema).default([]),
 });
 

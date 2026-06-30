@@ -4,14 +4,7 @@ import { SettlementHistory } from '../components/settlement/settlement-history';
 import { SettlementEditor } from '../components/settlement/settlement-editor';
 import { TransferList } from '../components/settlement/transfer-list';
 
-// Mock framer-motion
-vi.mock('framer-motion', () => ({
-  motion: {
-    div: ({ children, ...props }) => <div {...props}>{children}</div>,
-    g: ({ children, ...props }) => <g {...props}>{children}</g>,
-  },
-  AnimatePresence: ({ children }) => children,
-}));
+
 
 // Mock UI components
 vi.mock('../ui/card', () => ({

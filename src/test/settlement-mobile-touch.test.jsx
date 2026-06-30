@@ -2,18 +2,7 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { vi } from 'vitest';
 import { SettlementGraph } from '../components/settlement/settlement-graph';
 
-// Mock framer-motion
-vi.mock('framer-motion', () => ({
-  motion: {
-    div: ({ children, ...props }) => <div {...props}>{children}</div>,
-    g: ({ children, ...props }) => <g {...props}>{children}</g>,
-    circle: ({ children, ...props }) => <circle {...props}>{children}</circle>,
-    path: ({ children, ...props }) => <path {...props}>{children}</path>,
-    text: ({ children, ...props }) => <text {...props}>{children}</text>,
-    rect: ({ children, ...props }) => <rect {...props}>{children}</rect>,
-  },
-  AnimatePresence: ({ children }) => children,
-}));
+
 
 // Mock UI components
 vi.mock('../ui/card', () => ({

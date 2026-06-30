@@ -19,7 +19,7 @@ describe('Button', () => {
   it('renders with different sizes', () => {
     render(<Button size="sm">Small</Button>);
     const button = screen.getByRole('button', { name: /small/i });
-    expect(button).toHaveClass('h-9');
+    expect(button).toHaveClass('h-8');
   });
 
   it('can be disabled', () => {

@@ -2,12 +2,7 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { vi } from 'vitest';
 import { WhatIfPanel } from '../components/what-if/what-if-panel';
 
-// Mock framer-motion
-vi.mock('framer-motion', () => ({
-  motion: {
-    div: ({ children, ...props }) => <div {...props}>{children}</div>,
-  },
-}));
+
 
 // Mock UI components
 vi.mock('../ui/card', () => ({

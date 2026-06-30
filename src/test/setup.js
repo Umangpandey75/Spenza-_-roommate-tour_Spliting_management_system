@@ -1,6 +1,21 @@
 import '@testing-library/jest-dom';
 import { vi } from 'vitest';
 
+process.env.NEXT_PUBLIC_SUPABASE_URL = 'https://mock.supabase.co';
+process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY = 'mock-anon-key';
+
+if (typeof window !== 'undefined') {
+  window.PointerEvent = class PointerEvent extends Event {};
+  window.HTMLElement.prototype.hasPointerCapture = vi.fn();
+  window.HTMLElement.prototype.releasePointerCapture = vi.fn();
+  window.HTMLElement.prototype.setPointerCapture = vi.fn();
+  window.HTMLElement.prototype.scrollIntoView = vi.fn();
+  window.Element.prototype.hasPointerCapture = vi.fn();
+  window.Element.prototype.releasePointerCapture = vi.fn();
+  window.Element.prototype.setPointerCapture = vi.fn();
+  window.Element.prototype.scrollIntoView = vi.fn();
+}
+
 // Mock IntersectionObserver for virtualization tests
 global.IntersectionObserver = vi.fn().mockImplementation((callback) => ({
   observe: vi.fn(),
@@ -61,6 +76,39 @@ global.indexedDB = {
 // Mock URL.createObjectURL for export tests
 global.URL.createObjectURL = vi.fn(() => 'mock-url');
 global.URL.revokeObjectURL = vi.fn();
+
+// Mock fetch
+global.fetch = vi.fn().mockResolvedValue({
+  ok: true,
+  json: async () => ({}),
+  text: async () => '',
+  blob: async () => new Blob(),
+});
+
+// Mock framer-motion globally
+vi.mock('framer-motion', async () => {
+  const actual = await vi.importActual('framer-motion');
+  const motion = new Proxy({}, {
+    get: (_, prop) => {
+      if (prop === 'custom') {
+        return (Component) => ({ children, ...props }) => {
+          const { layoutId, animate, initial, exit, transition, ...validProps } = props;
+          return <Component {...validProps}>{children}</Component>;
+        };
+      }
+      return ({ children, ...props }) => {
+        const { layoutId, animate, initial, exit, transition, ...validProps } = props;
+        const Component = prop;
+        return <Component {...validProps}>{children}</Component>;
+      };
+    }
+  });
+  return {
+    ...actual,
+    motion,
+    AnimatePresence: ({ children }) => <>{children}</>,
+  };
+});
 
 // Mock HTMLCanvasElement.getContext for chart tests
 HTMLCanvasElement.prototype.getContext = vi.fn(() => ({

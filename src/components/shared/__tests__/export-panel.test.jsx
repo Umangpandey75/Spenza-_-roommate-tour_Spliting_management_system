@@ -10,6 +10,14 @@ const mockStorageManager = {
   getSettings: vi.fn(),
 };
 
+vi.mock('../../ui/dialog', () => ({
+  Dialog: ({ children }) => <div>{children}</div>,
+  DialogContent: ({ children }) => <div>{children}</div>,
+  DialogHeader: ({ children }) => <div>{children}</div>,
+  DialogTitle: ({ children }) => <h2>{children}</h2>,
+  DialogTrigger: ({ children }) => <div>{children}</div>,
+}));
+
 const MockStorageProvider = ({ children }) => (
   <StorageProvider value={mockStorageManager}>
     {children}
